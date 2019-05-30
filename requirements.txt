@@ -1,0 +1,1 @@
+-e git+git@github.com:ideoforms/pylive.git@f99fd847d896ae5b30f700b1bcb3f4097f30e1cc#egg=pylive
