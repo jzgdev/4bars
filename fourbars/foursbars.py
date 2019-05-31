@@ -2,7 +2,7 @@
 """
 MIT License
 
-Copyright (c) 2019 Piotr Styk
+Copyright (c) 2019 Piotr Styk <polfilm@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -71,6 +71,7 @@ def main(args=None):
 
     if args.clip:
         clip = Clip()
+        clip.add_note()
 
     elif args.clip_delete:
         pass

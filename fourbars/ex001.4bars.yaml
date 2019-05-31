@@ -1,0 +1,7 @@
+
+pattern01: |
+  C-5 FF
+  --- FF
+  --- FF
+  --- FF
+  E-5 FF
