@@ -70,5 +70,9 @@ class Clip(object):
 
 
         print (data)
-        self.clip.add_note(60,1,2,60)
+        # note position duration velocity
+        self.clip.add_note(60, 0, 0.25, 60)
+        self.clip.add_note(60, 1, 0.25, 10)
+        self.clip.add_note(60, 2, 0.25, 120)
+        self.clip.add_note(61, 3, 1, 120)
 
