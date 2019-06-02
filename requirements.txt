@@ -1,3 +1,3 @@
 termcolor==1.1.0
--e git+git@github.com:ideoforms/pylive.git@f99fd847d896ae5b30f700b1bcb3f4097f30e1cc#egg=live
+-e git+git@github.com:ideoforms/pylive.git@cacb9ed69e129f4471d09f7a9548a5a6c5e32f13#egg=live
 yamlordereddictloader==0.4.0

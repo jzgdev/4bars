@@ -71,6 +71,7 @@ def main(args=None):
 
     if args.clip:
         clip = Clip()
+        clip.add_clip()
         clip.add_note()
 
     elif args.clip_delete:

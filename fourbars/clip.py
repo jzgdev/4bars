@@ -44,6 +44,8 @@ class Clip(object):
 
         self.debug_set_access()
         self.debug_track_access_assume_first_is_midi()
+
+        self.add_clip()
         self.debug_clip_access()
 
     def debug_set_access(self):
@@ -56,11 +58,19 @@ class Clip(object):
         print("Track name %s" % self.track.name)
 
     def debug_clip_access(self):
+        # only if clip exists
         self.clip = self.track.clips[0]
         print("Clip name %s, length %d beats" % (self.clip.name, self.clip.length))
 
     def play(self):
         self.clip.play()
+
+    def add_clip(self):
+        self.set.create_clip(0, 0, 8)
+
+        # since references by value not ref, we need to reload
+        self.add_clip()
+        self.debug_set_access()
 
     def add_note(self):
         example_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ex001.4bars.yaml")
