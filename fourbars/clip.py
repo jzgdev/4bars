@@ -69,8 +69,8 @@ class Clip(object):
         self.set.create_clip(0, 0, 8)
 
         # since references by value not ref, we need to reload
-        self.add_clip()
         self.debug_set_access()
+        self.debug_track_access_assume_first_is_midi()
 
     def add_note(self):
         example_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ex001.4bars.yaml")
