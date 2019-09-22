@@ -71,8 +71,9 @@ def main(args=None):
 
     if args.clip:
         clip = Clip()
-        clip.add_clip()
-        clip.add_note()
+        #clip.add_clip()
+        #clip.add_note()
+        filename = clip.get_clip()
 
     elif args.clip_delete:
         pass

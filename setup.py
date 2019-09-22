@@ -4,8 +4,8 @@ from setuptools import setup
 
 setup(
     name = '4bars',
-    version = '0.1.0',
-    description = 'RESTful API remote control of Ableton Live',
+    version = '0.2.0',
+    description = 'In Ableton Live, automatically record 4 bar sequences and export perfect loops catalogue them.',
     long_description = open("README.md", "r").read(),
     long_description_content_type = "text/markdown",
     author = 'Piotr Styk',

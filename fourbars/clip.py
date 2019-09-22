@@ -43,10 +43,7 @@ class Clip(object):
     def __init__(self):
 
         self.debug_set_access()
-        self.debug_track_access_assume_first_is_midi()
-
-        self.add_clip()
-        self.debug_clip_access()
+        #self.debug_track_access_assume_first_is_midi()
 
     def debug_set_access(self):
         self.set = live.Set()
@@ -66,11 +63,14 @@ class Clip(object):
         self.clip.play()
 
     def add_clip(self):
-        self.set.create_clip(0, 0, 8)
+        self.set.create_clip(0, 0, 4)
 
         # since references by value not ref, we need to reload
         self.debug_set_access()
         self.debug_track_access_assume_first_is_midi()
+
+        # verify
+        self.debug_clip_access()
 
     def add_note(self):
         example_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "ex001.4bars.yaml")
@@ -85,4 +85,39 @@ class Clip(object):
         self.clip.add_note(60, 1, 0.25, 10)
         self.clip.add_note(60, 2, 0.25, 120)
         self.clip.add_note(61, 3, 1, 120)
+
+    def get_clip(self):
+        #clips = self.set.get /live/name/clip
+        #track3 = self.set.tracks[2]
+        #tempo = self.set.get_tempo()
+        #clip10 = self.set.get_clip_name(2, 1)
+        #set_filename = self.set._get_last_opened_set_filename()
+        #a = self.set.currently_open()
+
+        from randomnames import random_namepair
+        print ("random: {}".format(random_namepair()))
+        from fourbars.als_parser import AlsParser
+
+        als_filename = '../un/Piotrek173-ClyphxSessions.als.xml'
+        alsparser = AlsParser(als_filename)
+
+        for asset in alsparser.track.clipslots:
+            print (asset.clip_name, asset.file_abs)
+        pass
+'''
+        import xml.etree.ElementTree as ET
+        root = ET.parse('../un/Piotrek173-ClyphxSessions.als.xml').getroot()
+        for audiotrack in root.findall('LiveSet/Tracks/AudioTrack'):
+            track_name = audiotrack.findall('Name/EffectiveName')[0].get('Value')
+            pos = 0
+            for clipslot in audiotrack.findall('DeviceChain/MainSequencer/ClipSlotList'):
+                pos += 1
+                clip_filename = clipslot.findall('ClipSlot/ClipSlot/Value/AudioClip/SampleRef/FileRef/Name')[0].get('Value')
+                clip_name = clipslot.findall('ClipSlot/ClipSlot/Value/AudioClip/Name')[0].get('Value')
+                clip_fullpath = ""
+                for folder in clipslot.findall('ClipSlot/ClipSlot/Value/AudioClip/SampleRef/FileRef/SearchHint/PathHint/RelativePathElement'):
+                    clip_fullpath = clip_fullpath + "/" + folder.get('Dir')
+                clip_fullpath + "/" + clip_filename
+                pass
+'''
 
