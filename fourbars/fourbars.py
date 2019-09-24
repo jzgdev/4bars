@@ -28,7 +28,8 @@ import argparse
 import sys
 import pkg_resources
 from termcolor import colored
-from fourbars.clip import Clip
+from clip import Clip
+from cmd import Cmd
 
 
 class Struct:
@@ -47,12 +48,11 @@ def get_version():
     try:
         return pkg_resources.get_distribution("4bars").version
     except:
-        return "git based version"
-        #return Cmd.local_run_get_out("get version", "git describe --tags")
+        return Cmd.local_run_get_out("get version", "git describe --tags")
 
 
 def main(args=None):
-    description = colored("4bars {0} - (c) 2019 Piotr Styk".format(get_version()), 'white', attrs=['bold'])
+    description = colored("4bars - (c) 2019 Piotr Styk <dev@4bars.media> - {0}".format(get_version()), 'white', attrs=['bold'])
     parser = MyParser(prog="./4bars.py", description=description)
     group = parser.add_mutually_exclusive_group()
 
