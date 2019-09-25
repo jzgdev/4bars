@@ -11,12 +11,13 @@ In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then 
 - (optional) submit 4 bar sequences to 4bars.media for social sequencing
 
 ## Requirements
+- Ableton Live v10.1+
 - python 3.7.2 +
-- brew install liblo
-- pylive
-- liveosc (forked 10+)
+- brew install liblo 
+- pylive (freedom to work with Live outside of Live python)
+- liveosc (forked for AL10+, comes with pylive)
 - ClyphX Pro (commercial version)
-- sendmidi (for stubborn program changes of vst devices)
+- sendmidi receivemidi (for stubborn program changes of vst devices)
 - gzip (for extracting of ableton project files)
 
 ## Help

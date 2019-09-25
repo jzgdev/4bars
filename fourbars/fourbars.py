@@ -40,8 +40,23 @@ class Struct:
 class MyParser(argparse.ArgumentParser):
     def error(self, message):
         #sys.stderr.write('ERROR: %s\n' % message)
-        #self.print_help()
-        sys.exit(2)
+        print ("""Usage: 4bars (BETA) [-version] [-help] <command> [args]
+
+The available commands for execution are listed below
+Commands marked [WIP] are work-in-progress
+
+Common commands:
+    cd          [WIP] essential directory navigation
+    set         [WIP] set management
+    track       [WIP] current track setup
+    device      [WIP] device management
+    record      [WIP] record all clips on 4BARS_ prefixed track
+    sync        [WIP] synchronize exported assets with 4bars.media
+    status      [WIP] check if all requirements and communication is working
+    login       [WIP] login to 4bars service. obtain api token
+""")
+
+        sys.exit(0)
 
 
 def get_version():
@@ -53,21 +68,15 @@ def get_version():
 
 def main(args=None):
     description = colored("4bars - (c) 2019 Piotr Styk <dev@4bars.media> - {0}".format(get_version()), 'white', attrs=['bold'])
-    parser = MyParser(prog="./4bars.py", description=description)
+    parser = MyParser(prog="./4bars.py", description=description, usage=argparse.SUPPRESS, add_help=False)
+    parser.add_argument('cd', nargs='+', help='essential directory navigation')
     group = parser.add_mutually_exclusive_group()
-
     group.add_argument('-c', '--clip', dest="clip", metavar=('CLIPFILE'), help='create Ableton <clip> from 4bars datafile', action='store')
     group.add_argument('--clip-delete', help='delete clip', action='store_true')
 
+    print()
+    print(description)
     args = parser.parse_args()
-
-    if not len(sys.argv) > 1:
-        print()
-        print(description)
-        print
-
-    args = parser.parse_args()
-    #sett = settings.Settings(args)
 
     if args.clip:
         clip = Clip()
@@ -77,6 +86,7 @@ def main(args=None):
 
     elif args.clip_delete:
         pass
+
 
 
 if __name__ == "__main__":
