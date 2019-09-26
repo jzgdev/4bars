@@ -26,68 +26,46 @@ SOFTWARE.
 
 import argparse
 import sys
+from cmd_parser import CommandParser
 import pkg_resources
 from termcolor import colored
 from clip import Clip
 from cmd import Cmd
 
 
-class Struct:
-    def __init__(self, **entries):
-        self.__dict__.update(entries)
 
 
-class MyParser(argparse.ArgumentParser):
-    def error(self, message):
-        #sys.stderr.write('ERROR: %s\n' % message)
-        print ("""Usage: 4bars (BETA) [-version] [-help] <command> [args]
-
-The available commands for execution are listed below
-Commands marked [WIP] are work-in-progress
-
-Common commands:
-    cd          [WIP] essential directory navigation
-    set         [WIP] set management
-    track       [WIP] current track setup
-    device      [WIP] device management
-    record      [WIP] record all clips on 4BARS_ prefixed track
-    sync        [WIP] synchronize exported assets with 4bars.media
-    status      [WIP] check if all requirements and communication is working
-    login       [WIP] login to 4bars service. obtain api token
-""")
-
-        sys.exit(0)
 
 
-def get_version():
-    try:
-        return pkg_resources.get_distribution("4bars").version
-    except:
-        return Cmd.local_run_get_out("get version", "git describe --tags")
 
+class FourBars(object):
+    def __init__(self):
 
-def main(args=None):
-    description = colored("4bars - (c) 2019 Piotr Styk <dev@4bars.media> - {0}".format(get_version()), 'white', attrs=['bold'])
-    parser = MyParser(prog="./4bars.py", description=description, usage=argparse.SUPPRESS, add_help=False)
-    parser.add_argument('cd', nargs='+', help='essential directory navigation')
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument('-c', '--clip', dest="clip", metavar=('CLIPFILE'), help='create Ableton <clip> from 4bars datafile', action='store')
-    group.add_argument('--clip-delete', help='delete clip', action='store_true')
+        parser = CommandParser(
+            usage=argparse.SUPPRESS,
+            add_help=False)
 
-    print()
-    print(description)
-    args = parser.parse_args()
+        parser.add_argument('command', help='Subcommand to run')
 
-    if args.clip:
-        clip = Clip()
-        #clip.add_clip()
-        #clip.add_note()
-        filename = clip.get_clip()
+        args = parser.parse_args(sys.argv[1:2])
+        if not hasattr(self, args.command):
+            parser.help_root()
+            exit(1)
 
-    elif args.clip_delete:
-        pass
+        getattr(self, args.command)()
 
+    def cd(self):
+        from cd import Cd
+        cd = Cd(sys.argv[1:])
+
+    def fetch(self):
+        parser = argparse.ArgumentParser(
+            description='Download objects and refs from another repository')
+        # NOT prefixing the argument with -- means it's not optional
+        parser.add_argument('repository')
+        args = parser.parse_args(sys.argv[2:])
+        print('Running git fetch, repository=%s' % args.repository)
 
 
 if __name__ == "__main__":
-    main()
+    FourBars()

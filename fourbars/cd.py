@@ -1,15 +1,30 @@
+import argparse
+from cmd_parser import CommandParser
+
+
 class Cd(object):
 
-    def __init__(self, in_cd):
-        if not in_cd:
-            self.help()
+    parser = None
+
+    def __init__(self, in_subarg):
+        self.parser = CommandParser(
+            usage=argparse.SUPPRESS,
+            add_help=False)
+
+        self.parser.add_argument('cd', help='Subcommand to run')
+
+        args = self.parser.parse_args(in_subarg[1:2])
+        if not hasattr(self, args.cd):
+            self.parser.help_cd()
+            exit(1)
+
+        getattr(self, args.cd)()
+
+        pass
 
     def help(self):
-        help = """
-Usage: 4bars [-version] [-help] <command> [args]
+        self.parser.help_cd()
 
-CD commands are for quick directory navigation. Example: 4bars cd base
-    base        4bars base folder for projects and recordings
-"""
-
+    def rec(self):
+        print("REC")
 
