@@ -19,6 +19,7 @@ In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then 
 - ClyphX Pro (commercial version)
 - sendmidi receivemidi (for stubborn program changes of vst devices)
 - gzip (for extracting of ableton project files)
+- Mac OS X (not tested on any other platform at the moment)
 
 ## Help
 Join "Abletonists" Slack channel. Immediate invitation at: https://abletonists.4bars.media
