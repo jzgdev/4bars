@@ -34,6 +34,16 @@ cd commands:
     rec         4bars recordings output folder
     help        this help menu""")
 
+    def help_set(self):
+        self.desc()
+        print("""Usage: 4bars [-version] [-help] <command> [args]
+
+SET commands are for interaction with Live set. Example: 4bars set status
+
+set commands:
+    status      get basic info on current set
+    help        this help menu""")
+
     def error(self, message):
         #sys.stderr.write('ERROR: %s\n' % message)
         self.help_root()

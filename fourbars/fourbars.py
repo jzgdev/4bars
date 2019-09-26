@@ -23,19 +23,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-
 import argparse
 import sys
 from cmd_parser import CommandParser
-import pkg_resources
-from termcolor import colored
-from clip import Clip
-from cmd import Cmd
-
-
-
-
-
 
 
 class FourBars(object):
@@ -45,7 +35,7 @@ class FourBars(object):
             usage=argparse.SUPPRESS,
             add_help=False)
 
-        parser.add_argument('command', help='Subcommand to run')
+        parser.add_argument('command')
 
         args = parser.parse_args(sys.argv[1:2])
         if not hasattr(self, args.command):
@@ -58,13 +48,9 @@ class FourBars(object):
         from cd import Cd
         cd = Cd(sys.argv[1:])
 
-    def fetch(self):
-        parser = argparse.ArgumentParser(
-            description='Download objects and refs from another repository')
-        # NOT prefixing the argument with -- means it's not optional
-        parser.add_argument('repository')
-        args = parser.parse_args(sys.argv[2:])
-        print('Running git fetch, repository=%s' % args.repository)
+    def set(self):
+        from set import Set
+        set = Set(sys.argv[1:])
 
 
 if __name__ == "__main__":
