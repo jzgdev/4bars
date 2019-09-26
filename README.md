@@ -1,3 +1,5 @@
+![](https://api.travis-ci.com/styk-tv/4bars.svg)
+
 # 4bars by Abletonists
 In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then export all new recordings, name them, catalogue them.
 
