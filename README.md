@@ -31,6 +31,8 @@ Currently, based way to install 4bars is by cloning this repo.
 - clone 
 - run install_mac.sh
 - run pip install -r requirements.txt
+- ableton midiscript: ClyphX Pro installed and selected as active Control Surface in Preferences/Link Midi
+- ableton midiscript: LiveOSC (fork maintained by pylive guys) installed and selected as active Control Surface in Preferences/Link Midi 
 
 pip package called `fourbars` is currently WIP and will be published by TravisCI on every merge to master.
 
