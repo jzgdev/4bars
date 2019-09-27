@@ -61,11 +61,11 @@ Common commands:
 
 ## Roadmap for version 1.5
 
-Immediate roadmap and to do list is to be able to initialize new file. Inject ClyphX control track. Then play ClyphX clips in various configuration to constuct a workspace for loop recording. One one side you will end up with a Track or a TrackGroup with midi files, then device setup and then upon of execution a cascading recording will initiate to record each clip and essentially convert it from MIDI, through a device (VST synth and VST plugins) to record track. 
+Immediate roadmap and to do list is to be able to initialize new Ableton project file then inject ClyphX control track and "play" ClyphX clips in various configuration to constuct a workspace for loop recording. One one side you will end up with a Track or a TrackGroup with midi files, then device setup and then upon of execution a cascading recording will initiate to record each clip and essentially convert it from MIDI, through a device (VST synth and VST plugins) to record track. Just to give you an example. Injection of 20 midi files, setup of devices, creating of recording session for each of the clips will take one 4bars command and few seconds of Ableton Live executing a UI sequence. 
 
-All recorded clips will be then collected from Recordings folder and placed in 4bars local directory structure. A renaming convention will be applied based on Track/Clip names. Name generator can optionally be used based on world list from randomnames package so you will end up with AdjectiveNoun pairs for easy reference.
+All recorded clips will be then collected from Recordings folder through discovery in Ableton project file and placed in 4bars local directory structure. A renaming convention will be applied based on Track/Clip names. Name generator can optionally be used based on world list from randomnames package so you will end up with AdjectiveNoun pairs for easy reference. Commands will be added to 4bars to make this trivial.
 
-Default ffmpeg LAME encoder for MP3 adds a 25ms silence (pre/post) essentially making MP3s useless for the looping purposes. Local preconfigured ffmpeg can then be triggered to perform mass conversions from ALS (full quality 48Khz) to OGG/AAC 48khz pairs at both (96kbs/s and 320kbps/s). Having OGG/ACC pairs allows for full coverage of browser HTML5 playbecks. Take a look at table below.
+Default ffmpeg LAME encoder for MP3 adds a 25ms silence on both pre-loop and post-loop essentially making MP3s useless for the looping purposes. Local preconfigured ffmpeg can then be triggered to perform mass conversions from ALS (full quality 48Khz) to OGG/AAC 48khz pairs at both (96kbs/s and 320kbps/s). Having OGG/ACC pairs allows for full coverage of browser HTML5 playbecks. Commands will be added to 4bars to make this trivial. Take a look at table below.
 
 ```$xslt
 <audio controls="controls">
