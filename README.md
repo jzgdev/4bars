@@ -15,6 +15,7 @@ In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then 
 ## Requirements
 - Ableton Live v10.1+
 - python 3.7.2 +
+- pyenv vritualenv 4bars (you will need pyenv virtualenv with 3.7.2 named 4bars)
 - brew install liblo 
 - pylive (freedom to work with Live outside of Live python)
 - liveosc (forked for AL10+, comes with pylive)
@@ -22,6 +23,67 @@ In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then 
 - sendmidi receivemidi (for stubborn program changes of vst devices)
 - gzip (for extracting of ableton project files)
 - Mac OS X (not tested on any other platform at the moment)
+
+## Installation
+
+Currently, based way to install 4bars is by cloning this repo.
+
+- clone 
+- run install_mac.sh
+- run pip install -r requirements.txt
+
+pip package called `fourbars` is currently WIP and will be published by TravisCI on every merge to master.
+
+## Usage
+
+After installation you should be able to type `4bars` form anywhere in your cli.
+List of commands will appear:
+
+```$xslt
+Usage: 4bars (BETA) [-version] [-help] <command> [args]
+
+The available commands for execution are listed below
+Commands marked [WIP] are work-in-progress
+
+Common commands:
+    cd          essential directory navigation
+    set         set management
+    track       current track setup
+    device      [WIP] device management
+    record      [WIP] record all clips on 4BARS_ prefixed track
+    sync        [WIP] synchronize exported assets with 4bars.media
+    status      check if all requirements and communication is working
+    login       [WIP] login to 4bars service. obtain api token
+```
+## Release History
+
+- 1.0.1 - 2019.09.26 - Initial CLI release with multilevel arguments and basic Live connectivity
+
+## Roadmap for version 1.5
+
+Immediate roadmap and to do list is to be able to initialize new file. Inject ClyphX control track. Then play ClyphX clips in various configuration to constuct a workspace for loop recording. One one side you will end up with a Track or a TrackGroup with midi files, then device setup and then upon of execution a cascading recording will initiate to record each clip and essentially convert it from MIDI, through a device (VST synth and VST plugins) to record track. 
+
+All recorded clips will be then collected from Recordings folder and placed in 4bars local directory structure. A renaming convention will be applied based on Track/Clip names. Name generator can optionally be used based on world list from randomnames package so you will end up with AdjectiveNoun pairs for easy reference.
+
+Default ffmpeg LAME encoder for MP3 adds a 25ms silence (pre/post) essentially making MP3s useless for the looping purposes. Local preconfigured ffmpeg can then be triggered to perform mass conversions from ALS (full quality 48Khz) to OGG/AAC 48khz pairs at both (96kbs/s and 320kbps/s). Having OGG/ACC pairs allows for full coverage of browser HTML5 playbecks. Take a look at table below.
+
+```$xslt
+<audio controls="controls">
+    <source src="xxx.aac" type="audio/mp4" />
+</audio>
+
++---------------------+-----+-----+-----+-----+
+| Browser             | Ogg | MP3 | AAC | Wav |
++---------------------+-----+-----+-----+-----+
+| Internet Explorer 9 | No  | Yes | Yes | No  |
+| Firefox 5           | Yes | No  | No  | Yes |
+| Chrome 12           | Yes | Yes | Yes | Yes |
+| Safari 5            | No  | Yes | Yes | Yes |
+| Opera 11.5          | Yes | No  | No  | Yes |
++---------------------+-----+-----+-----+-----+
+```
+
+Local files, can then be mass tagged and uploaded to `4bars.media` online space for social sequencing purposes and further distribution as required.
 
 ## Help
 Join "Abletonists" Slack channel. Immediate invitation at: https://abletonists.4bars.media
