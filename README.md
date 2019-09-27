@@ -70,19 +70,19 @@ All recorded clips will be then collected from Recordings folder through discove
 Default ffmpeg LAME encoder for MP3 adds a 25ms silence on both pre-loop and post-loop essentially making MP3s useless for the looping purposes. Local preconfigured ffmpeg can then be triggered to perform mass conversions from ALS (full quality 48Khz) to OGG/AAC 48khz pairs at both (96kbs/s and 320kbps/s). Having OGG/ACC pairs allows for full coverage of browser HTML5 playbecks. Commands will be added to 4bars to make this trivial. Take a look at table below.
 
 ```$xslt
-<audio controls="controls">
-    <source src="xxx.aac" type="audio/mp4" />
-</audio>
+     <audio controls="controls">
+         <source src="xxx.aac" type="audio/mp4" />
+     </audio>
 
-+---------------------+-----+-----+-----+-----+
-| Browser             | Ogg | MP3 | AAC | Wav |
-+---------------------+-----+-----+-----+-----+
-| Internet Explorer 9 | No  | Yes | Yes | No  |
-| Firefox 5           | Yes | No  | No  | Yes |
-| Chrome 12           | Yes | Yes | Yes | Yes |
-| Safari 5            | No  | Yes | Yes | Yes |
-| Opera 11.5          | Yes | No  | No  | Yes |
-+---------------------+-----+-----+-----+-----+
+     +---------------------+-----+-----+
+     | Browser             | Ogg | AAC |
+     +---------------------+-----+-----+
+     | Internet Explorer 9 | No  | Yes |
+     | Firefox 5           | Yes | No  |
+     | Chrome 12           | Yes | Yes |
+     | Safari 5            | No  | Yes |
+     | Opera 11.5          | Yes | No  |
+     +---------------------+-----+-----+
 ```
 
 Local files, can then be mass tagged and uploaded to `4bars.media` online space for social sequencing purposes and further distribution as required.

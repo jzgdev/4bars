@@ -1,13 +1,13 @@
 import argparse
 from cmd_parser import CommandParser
+import live
 from locations import Locations
-import os
-import sys
 
-class Cd(object):
+class Get(object):
 
     parser = None
     subars = None
+    set = None
 
     def __init__(self, in_subargs):
         self.parser = CommandParser(
@@ -18,26 +18,24 @@ class Cd(object):
 
         # if single (this) subarg, then only help
         if len(self.subargs) < 2:
-            self.parser.help_cd()
+            self.parser.help_set()
             return
 
-        self.parser.add_argument('cd', help='Subcommand to run')
+        self.parser.add_argument('get')
 
         args = self.parser.parse_args(in_subargs[1:2])
-        if not hasattr(self, args.cd):
-            self.parser.help_cd()
+        if not hasattr(self, args.get):
+            self.parser.help_get()
             exit(1)
 
-        getattr(self, args.cd)()
+        getattr(self, args.get)()
 
         pass
 
-    def help(self):
-        self.parser.help_cd()
-
-    def rec(self):
-        print("REC")
-
-    def prefs(self):
+    def locations(self):
         print(Locations().get_fullpretty())
+
+    def help(self):
+        self.parser.help_set()
+
 
