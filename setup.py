@@ -2,11 +2,16 @@
 
 from setuptools import setup
 
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(
     name = 'fourbars',
-    version = '0.2.0',
+    version = '0.2.1',
     description = 'Ableton Live CLI - High Precision Loop Production and Asset Management',
-    long_description = open("README.md", "r").read(),
+    long_description = long_description,
     long_description_content_type = "text/markdown",
     author = 'Peter Styk',
     author_email = 'dev@4bars.media',
