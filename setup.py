@@ -9,7 +9,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name = 'fourbars',
-    version = '0.2.1',
+    version = '0.2.2',
     description = 'Ableton Live CLI - High Precision Loop Production and Asset Management',
     long_description = long_description,
     long_description_content_type = "text/markdown",
