@@ -52,6 +52,9 @@ class FourBars(object):
         from set import Set
         set = Set(sys.argv[1:])
 
+    def get(self):
+        from get import Get
+        get = Get(sys.argv[1:])
 
 if __name__ == "__main__":
     FourBars()
