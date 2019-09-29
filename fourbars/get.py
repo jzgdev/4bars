@@ -18,7 +18,7 @@ class Get(object):
 
         # if single (this) subarg, then only help
         if len(self.subargs) < 2:
-            self.parser.help_set()
+            self.parser.help_get()
             return
 
         self.parser.add_argument('get')

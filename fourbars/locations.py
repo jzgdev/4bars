@@ -12,21 +12,27 @@ class Locations(object):
     full_pretty = None
     log = None
     default_set = None
+    user_library = None
+    pwd = None
 
     def __init__(self):
         self.set_home()
         self.set_config()
         self.set_preferences_latest()
         self.set_log()
+        self.set_pwd()
         self.set_default_set()
+        self.set_user_library()
 
     def get_fullpretty(self):
         table = PrettyTable()
         table.field_names = ['Name', 'Absolute Path']
         table.add_row(['HOME', self.home])
+        table.add_row(['Current Folder', self.pwd])
         table.add_row(['4bars Configuration', self.config])
         table.add_row(['Ableton Preferences', self.preferences_latest])
         table.add_row(['Ableton Default Live Set', self.default_set])
+        table.add_row(['Ableton User Library', self.user_library])
         table.add_row(['Ableton Log', self.log])
         table.align = "l"
         return table
@@ -49,8 +55,15 @@ class Locations(object):
     def set_log(self):
         self.log = os.path.join(self.preferences_latest, "Log.txt")
 
+    def set_pwd(self):
+        with open(os.path.join(self.config, ".cache/pwd"), 'r') as file:
+            self.pwd = file.read().replace('\n', '')
+
     def set_default_set(self):
         self.default_set = os.path.join(self.preferences_latest, "BaseFiles/DefaultLiveSet.als")
+
+    def set_user_library(self):
+        self.user_library = os.path.join(self.home, "Music/Ableton/User Library")
 
     def mkdir_p(self, path):
         try:

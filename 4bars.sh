@@ -1,6 +1,15 @@
 #!/bin/bash +x
 # to activate: ln -s $(pwd)/fourbars/4bars.sh /usr/local/bin/4bars
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+
+# python executes codes from fourbars folder, pwd location is lost
+# output current bash location to a lookup file
+if [ ! -d ~/.config/4bars/.cache ]; then
+  mkdir -p ~/.config/4bars/.cache;
+fi
+echo $(pwd) > ~/.config/4bars/.cache/pwd
+
+
 pushd () {
     command pushd "$@" > /dev/null
 }

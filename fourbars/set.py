@@ -33,7 +33,7 @@ class Set(object):
         pass
 
     def get_set_reference(self):
-        self.set = live.Set()
+    df -hasattr()    self.set = live.Set()
 
     def help(self):
         self.parser.help_set()

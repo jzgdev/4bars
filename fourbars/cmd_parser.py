@@ -14,15 +14,20 @@ The available commands for execution are listed below
 Commands marked [WIP] are work-in-progress
 
 Common commands:
-    cd          [WIP] essential directory navigation
-    set         [WIP] set management
+    init        initialize new 4bars project
+    set         Live set management
     get         multilevel configuration lookup
-    track       [WIP] current track setup
-    device      [WIP] device management
-    record      [WIP] record all clips on 4BARS_ prefixed track
-    sync        [WIP] synchronize exported assets with 4bars.media
-    status      [WIP] check if all requirements and communication is working
-    login       [WIP] login to 4bars service. obtain api token""")
+    fs          operate on files in current directory
+    status      update on status of installation""")
+
+
+#    track       [WIP] current track setup
+#    device      [WIP] device management
+#    record      [WIP] record all clips on 4BARS_ prefixed track
+#    sync        [WIP] synchronize exported assets with 4bars.media
+
+#    login       [WIP] login to 4bars service. obtain api token
+#    cd          [WIP] essential directory navigation
 
     def help_cd(self):
         self.desc()
@@ -54,6 +59,25 @@ GET commands are multilevel element lookups. Example: 4bars get locations
 
 set commands:
     locations      get a list of Ableton and 4bars important folders and files locations
+    help           this help menu""")
+
+    def help_fs(self):
+        self.desc()
+        print("""Usage: 4bars [-version] [-help] <command> [args]
+
+FS commands operate on ALL music files in current directory. Example: 4bars fs list-tracks
+
+set commands:
+    list-tracks    list tracks of all midi-based files in current directory
+    help           this help menu""")
+
+    def help_init(self):
+        self.desc()
+        print("""Usage: 4bars [-version] [-help] <command> [args]
+
+INIT commands initialize current folder with 4bars Live set. Example: 4bars init
+
+set commands:
     help           this help menu""")
 
     def error(self, message):

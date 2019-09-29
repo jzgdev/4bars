@@ -4,3 +4,5 @@ termcolor==1.1.0
 -e git+git@github.com:styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames
 yamlordereddictloader==0.4.0
 prettytable==0.7.2
+mido==1.2.9
+pretty-midi==0.2.8
