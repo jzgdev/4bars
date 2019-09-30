@@ -11,6 +11,9 @@ matrix:
     - python: 3.7
       env: TOXENV=py37
 
+before_install:
+  - sudo apt-get install -y liblo
+  -
 cache:
   - pip
 
