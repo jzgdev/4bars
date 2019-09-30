@@ -25,7 +25,7 @@ def get_semantic_version():
             sys.stdout.write(out[1])
             raise SystemExit(32)
 
-        v = out[0].replace('\n','')
+        v = out[0].decode('ascii').replace('\n', '')
 
         if v.startswith('v.'):
             v = v[2:]
