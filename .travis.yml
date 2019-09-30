@@ -12,7 +12,7 @@ matrix:
       env: TOXENV=py37
 
 script:
-  - version.sh
+  - ./version.sh
 
 before_install:
   - sudo apt-get install -y liblo-dev
