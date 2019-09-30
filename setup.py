@@ -49,9 +49,8 @@ setup(
     url = 'https://github.com/styk-tv/4bars',
     packages = ['fourbars'],
     install_requires = [
-        'Cython==0.29.13',
         'termcolor==1.1.0',
-        'live @ git+https://github.com/ideoforms/pylive.git@cacb9ed69e129f4471d09f7a9548a5a6c5e32f13#egg=live',
+        'pylive==0.2.1',
         'randomnames @ git+https://github.com/styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames',
         'yamlordereddictloader==0.4.0',
         'pyliblo >= 0.9.1'
