@@ -1,4 +1,4 @@
-cython==0.29.13
+Cython==0.29.13
 termcolor==1.1.0
 -e git+https://github.com/ideoforms/pylive.git@cacb9ed69e129f4471d09f7a9548a5a6c5e32f13#egg=live
 -e git+https://github.com/styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames
