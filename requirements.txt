@@ -1,7 +1,7 @@
 cython==0.29.13
 termcolor==1.1.0
--e git+git@github.com:ideoforms/pylive.git@cacb9ed69e129f4471d09f7a9548a5a6c5e32f13#egg=live
--e git+git@github.com:styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames
+-e git+https://github.com/ideoforms/pylive.git@cacb9ed69e129f4471d09f7a9548a5a6c5e32f13#egg=live
+-e git+https://github.com/styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames
 yamlordereddictloader==0.4.0
 prettytable==0.7.2
 mido==1.2.9
