@@ -7,9 +7,40 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+
+def get_semantic_version():
+    global VERSION
+    try:
+        return pkg_resources.get_distribution("fourbars").version
+    except:
+        proc1 = subprocess.Popen("git describe --tags", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        out = proc1.communicate()
+
+        if proc1.returncode != 0:
+            sys.stdout.write("fourbars must install from cloned folder. make sure .git folder exists\n")
+            sys.stdout.write(out[1])
+            raise SystemExit(32)
+
+        v = out[0].replace('\n','')
+
+        if v.startswith('v.'):
+            v = v[2:]
+        elif v.startswith('v'):
+            v = v[1:]
+        li = v.split('.')
+        lii = li[1].split('-')
+        if len(lii) == 3:
+            v = '{0}.{1}.{2}'.format(li[0],lii[0],lii[1])
+        else:
+            v = '{0}.{1}'.format(li[0], li[1])
+        return v
+
+
+VERSION = get_semantic_version()
+
 setup(
     name = 'fourbars',
-    version = '0.2.2',
+    version = VERSION,
     description = 'Ableton Live CLI - High Precision Loop Production and Asset Management',
     long_description = long_description,
     long_description_content_type = "text/markdown",
