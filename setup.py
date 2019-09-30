@@ -50,7 +50,7 @@ setup(
     packages = ['fourbars'],
     install_requires = [
         'Cython==0.29.13',
-        'pyliblo==0.9.1',
+        'pyliblo3==0.10.4',
         'termcolor==1.1.0',
         'pylive==0.2.1',
         'randomnames @ git+https://github.com/styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames',
