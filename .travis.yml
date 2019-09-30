@@ -12,7 +12,7 @@ matrix:
       env: TOXENV=py37
 
 before_install:
-  - sudo apt-get install -y liblo
+  - sudo apt-get install -y liblo-dev
   -
 cache:
   - pip
