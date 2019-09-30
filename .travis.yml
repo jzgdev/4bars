@@ -13,6 +13,8 @@ install:
 - pip install -r requirements.txt
 - pip install .
 deploy:
+  distributions: sdist bdist_wheel
+  skip_upload_docs: true
   provider: pypi
   user: __token__
   password:
