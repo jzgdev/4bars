@@ -47,11 +47,11 @@ class Fs(object):
     def list_tracks(self):
         from prettytable import PrettyTable
         table = PrettyTable()
-        table.field_names = ['Name', 'Numnber of Tracks', 'Tempo', 'Beats']
+        table.field_names = ['Name', '# Tracks', 'Tempo', 'Beats']
         table.align = "l"
 
         from mido import MidiFile
-        files = [os.path.join(self.locations.pwd,f) for f in os.listdir(self.locations.pwd) if os.path.isfile(os.path.join(self.locations.pwd,f))]
+        files = [os.path.join(self.locations.pwd,f) for f in os.listdir(self.locations.pwd) if os.path.isfile(os.path.join(self.locations.pwd,f)) and f.lower().endswith(('.mid'))]
 
         import pretty_midi
         for f in files:
@@ -61,7 +61,7 @@ class Fs(object):
             mid = MidiFile(f)
             path_array = f.split('/')
             file_name = path_array[len(path_array)-1]
-            table.add_row([file_name, len(mid.tracks), pmid.estimate_tempo(), pmid.get_beats()])
+            table.add_row([file_name, len(mid.tracks), pmid.get_end_time(), ""])
             # iterate through tracks
 #            for i, track in enumerate(mid.tracks):
 #                print('Track {}: {}'.format(i, track.name))
