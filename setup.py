@@ -14,30 +14,28 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 def get_semantic_version():
     global VERSION
-    try:
-        return pkg_resources.get_distribution("fourbars").version
-    except:
-        proc1 = subprocess.Popen("git describe --tags", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        out = proc1.communicate()
 
-        if proc1.returncode != 0:
-            sys.stdout.write("fourbars must install from cloned folder. make sure .git folder exists\n")
-            sys.stdout.write(out[1])
-            raise SystemExit(32)
+    proc1 = subprocess.Popen("git describe --tags", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    out = proc1.communicate()
 
-        v = out[0].decode('ascii').replace('\n', '')
+    if proc1.returncode != 0:
+        sys.stdout.write("fourbars must install from cloned folder. make sure .git folder exists\n")
+        sys.stdout.write(out[1])
+        raise SystemExit(32)
 
-        if v.startswith('v.'):
-            v = v[2:]
-        elif v.startswith('v'):
-            v = v[1:]
-        li = v.split('.')
-        lii = li[1].split('-')
-        if len(lii) == 3:
-            v = '{0}.{1}.{2}'.format(li[0],lii[0],lii[1])
-        else:
-            v = '{0}.{1}'.format(li[0], li[1])
-        return v
+    v = out[0].decode('ascii').replace('\n', '')
+
+    if v.startswith('v.'):
+        v = v[2:]
+    elif v.startswith('v'):
+        v = v[1:]
+    li = v.split('.')
+    lii = li[1].split('-')
+    if len(lii) == 3:
+        v = '{0}.{1}.{2}'.format(li[0],lii[0],lii[1])
+    else:
+        v = '{0}.{1}'.format(li[0], li[1])
+    return v
 
 
 VERSION = get_semantic_version()
@@ -54,9 +52,9 @@ setup(
     packages = ['fourbars'],
     install_requires = [
         'Cython==0.29.13',
-        'pyliblo3==0.10.4',
+        'pyliblo >= 0.9.1',
         'termcolor==1.1.0',
-        'randomnames @ git+https://github.com/styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames',
+        'randomnames@git+https://github.com/styk-tv/python-randomnames.git@beaa1fad993bf03ac5bc6f3ace2eaed119585f80#egg=randomnames',
         'yamlordereddictloader==0.4.0',
         'pyliblo >= 0.9.1'
         ],
@@ -67,7 +65,5 @@ setup(
         'Topic :: Communications',
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers'
-    ],
-    setup_requires=['pytest-runner'],
-    tests_require=['pytest', 'pytest-timeout']
+    ]
 )
