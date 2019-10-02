@@ -25,13 +25,14 @@ SOFTWARE.
 
 import argparse
 import sys
-from cmd_parser import CommandParser
+
+from parser_cmd import ParserCmd
 
 
 class FourBars(object):
     def __init__(self):
 
-        parser = CommandParser(
+        parser = ParserCmd(
             usage=argparse.SUPPRESS,
             add_help=False)
 

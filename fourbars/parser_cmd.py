@@ -5,10 +5,10 @@ from termcolor import colored
 from cmd import Cmd
 
 
-class CommandParser(argparse.ArgumentParser):
+class ParserCmd(argparse.ArgumentParser):
     def help_root(self):
         self.desc()
-        print("""Usage: 4bars (BETA) [-version] [-help] <command> [args]
+        print("""Usage: 4bars [-version] [-help] <command> [args]
 
 The available commands for execution are listed below
 Commands marked [WIP] are work-in-progress
@@ -68,8 +68,9 @@ set commands:
 FS commands operate on ALL music files in current directory. Example: 4bars fs list-tracks
 
 set commands:
-    list-tracks    list tracks of all midi-based files in current directory
-    help           this help menu""")
+    tracks      list tracks of all midi-based files in current directory
+    notes       list notes in tracks using 4bars notation
+    help        this help menu""")
 
     def help_init(self):
         self.desc()
@@ -93,5 +94,5 @@ set commands:
             except:
                 return Cmd.local_run_get_out("get version", "git describe --tags")
 
-        description = colored("4bars - (c) 2019 Piotr Styk <dev@4bars.media> - {0}".format(get_version()), 'white', attrs=['bold'])
+        description = colored("4bars (BETA) (c) 2019 Piotr Styk <dev@4bars.media> {0}".format(get_version()), 'white', attrs=['bold'])
         print(description)
