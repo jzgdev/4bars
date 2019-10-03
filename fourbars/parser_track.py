@@ -6,10 +6,12 @@ class ParserTrack(object):
 
     mid_track = None
     name = None
+    time_is_default = True
     time_numerator = 4
     time_denominator = 4
     time_clocks_per_click = 96
     time_32nds_per_quarternote = 8
+    time_signature = "4/4"
 
     def __init__(self, in_track):
         self.mid_track = in_track
@@ -17,11 +19,10 @@ class ParserTrack(object):
 
         self._iterate()
 
-        # after either new updated or with default when not present
-        self.time_signature = "{0}/{1}".format(self.time_numerator, self.time_denominator)
         pass
 
     def _iterate(self):
+        print()
         for msg in self.mid_track:
             if msg.is_meta and msg.type == 'time_signature':
                 self._parse_time_signature(msg)
@@ -32,6 +33,7 @@ class ParserTrack(object):
 
 
     def _parse_time_signature(self, in_msg):
+        self.time_is_default = False
         self.time_numerator = in_msg.numerator
         self.time_denominator = in_msg.denominator
         self.time_clocks_per_click = in_msg.clocks_per_click
@@ -39,7 +41,9 @@ class ParserTrack(object):
         self.time_signature = "{0}/{1}".format(self.time_numerator, self.time_denominator)
 
     def _parse_notes(self, in_msg):
-        print (in_msg)
+        # translate to pylive compativle
+        # note position duration velocity
+        #print (in_msg)
         return
 
 

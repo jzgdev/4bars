@@ -15,8 +15,10 @@ class Fs(object):
     subars = None
     locations = None
     parsed = None
+    pretty_table = None
 
     def __init__(self, in_subargs):
+
         self.locations = Locations()
 
         self.parser = ParserCmd(
@@ -66,10 +68,6 @@ class Fs(object):
 
         files = self.get_mid_files()
 
-        import mido
-        #import pretty_midi
-        from prettytable import PrettyTable
-
         table = PrettyTable()
         table.field_names = ['Name', '# Tracks', 'Track Name', 'Length (s)', 'Type', 'TicksPerBeat']
         table.align = "l"
@@ -90,33 +88,39 @@ class Fs(object):
 
     def notes(self):
 
+
         if self.parsed.d:
             self.locations.pwd = self.parsed.d
 
         files = self.get_mid_files()
 
-        table = PrettyTable()
-        table.field_names = ['File', 'Track', 'TicksPerBeat', 'Sig']
-        table.align = "l"
+
+
         for f in files:
 
             mid = MidiFile(f)
             path_array = f.split('/')
             file_name = path_array[len(path_array)-1]
 
+            pretty_table = PrettyTable()
+            pretty_table.field_names = ['Name', 'Value']
+            pretty_table.align = "l"
+            pretty_table.add_row(["File Name", file_name])
+
             for i, track in enumerate(mid.tracks):
                 ptrack = ParserTrack(track)
-                table.add_row([file_name, ptrack.name, mid.ticks_per_beat, ptrack.time_signature])
+                pretty_table.add_row(["", ""])
+                default = ""
+                if ptrack.time_is_default:
+                    default = " *D"
+                pretty_table.add_row(["Track Name", ptrack.name])
+                pretty_table.add_row(["Ticks Per Beat", mid.ticks_per_beat])
+                pretty_table.add_row(["Time Signature{0}".format(default), ptrack.time_signature])
+                pretty_table.add_row(["Clocks Per Click{0}".format(default), ptrack.time_clocks_per_click])
+                pretty_table.add_row(["Notated 32nd notes per beat{0}".format(default), ptrack.time_32nds_per_quarternote])
 
-
-
-
-
-
-
-
-        #print(table)
-        #print()
+            print(pretty_table)
+            print()
 
 
         #pmid = pretty_midi.PrettyMIDI(f)
