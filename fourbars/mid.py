@@ -37,7 +37,7 @@ class Mid(object):
             self.parser.help_mid()
             return
 
-        self.parser.add_argument('fs', help='Subcommand to run')
+        self.parser.add_argument('mid', help='Subcommand to run')
         self.parser.add_argument('-d', action="store")
 
         self.parsed = self.parser.parse_args(in_subargs[1:])
@@ -118,6 +118,7 @@ class Mid(object):
                 pretty_table.add_row(["Time Signature{0}".format(default), ptrack.time_signature])
                 pretty_table.add_row(["Clocks Per Click{0}".format(default), ptrack.time_clocks_per_click])
                 pretty_table.add_row(["Notated 32nd notes per beat{0}".format(default), ptrack.time_32nds_per_quarternote])
+                pretty_table.add_row(["Track Notes (4bars format)".format(default), ptrack.track_string])
 
             print(pretty_table)
             print()

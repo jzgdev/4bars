@@ -1,6 +1,6 @@
 import mido
 import re
-
+import pretty_midi
 
 class ParserTrack(object):
 
@@ -12,6 +12,7 @@ class ParserTrack(object):
     time_clocks_per_click = 96
     time_32nds_per_quarternote = 8
     time_signature = "4/4"
+    track_string = ""
 
     def __init__(self, in_track):
         self.mid_track = in_track
@@ -43,7 +44,8 @@ class ParserTrack(object):
     def _parse_notes(self, in_msg):
         # translate to pylive compativle
         # note position duration velocity
-        print (in_msg)
+        self.track_string += pretty_midi.note_number_to_name(in_msg.note) + ""
+        #print (in_msg)
         return
 
 
