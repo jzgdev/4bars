@@ -2,7 +2,7 @@ import xml.etree.ElementTree as ET
 
 # parse track prefixed with "4BARS_"
 # if there are more than one, process first found
-class AlsParser(object):
+class ParserAls(object):
 
     root = None
     track = None

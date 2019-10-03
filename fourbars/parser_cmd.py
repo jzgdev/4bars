@@ -5,10 +5,10 @@ from termcolor import colored
 from cmd import Cmd
 
 
-class CommandParser(argparse.ArgumentParser):
+class ParserCmd(argparse.ArgumentParser):
     def help_root(self):
         self.desc()
-        print("""Usage: 4bars (BETA) [-version] [-help] <command> [args]
+        print("""Usage: 4bars [-version] [-help] <command> [args]
 
 The available commands for execution are listed below
 Commands marked [WIP] are work-in-progress
@@ -17,7 +17,7 @@ Common commands:
     init        initialize new 4bars project
     set         Live set management
     get         multilevel configuration lookup
-    fs          operate on files in current directory
+    mid         operate on MIDI (.mid) files in current directory
     status      update on status of installation""")
 
 
@@ -61,15 +61,19 @@ set commands:
     locations      get a list of Ableton and 4bars important folders and files locations
     help           this help menu""")
 
-    def help_fs(self):
+    def help_mid(self):
         self.desc()
         print("""Usage: 4bars [-version] [-help] <command> [args]
 
-FS commands operate on ALL music files in current directory. Example: 4bars fs list-tracks
+MID commands operate on MIDI (.mid) files current or specified (-d) directory. Example: 4bars mid notes
 
-set commands:
-    list-tracks    list tracks of all midi-based files in current directory
-    help           this help menu""")
+mid commands:
+    tracks      list tracks of all midi-based files in current directory
+    notes       list notes in tracks using 4bars notation
+    help        this help menu
+
+optional:
+    -d          directory folder""")
 
     def help_init(self):
         self.desc()
@@ -93,5 +97,5 @@ set commands:
             except:
                 return Cmd.local_run_get_out("get version", "git describe --tags")
 
-        description = colored("4bars - (c) 2019 Piotr Styk <dev@4bars.media> - {0}".format(get_version()), 'white', attrs=['bold'])
+        description = colored("4bars (BETA) (c) 2019 Piotr Styk <dev@4bars.media> {0}".format(get_version()), 'white', attrs=['bold'])
         print(description)
