@@ -43,7 +43,7 @@ class ParserTrack(object):
     def _parse_notes(self, in_msg):
         # translate to pylive compativle
         # note position duration velocity
-        #print (in_msg)
+        print (in_msg)
         return
 
 

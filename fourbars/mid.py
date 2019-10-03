@@ -9,7 +9,7 @@ from prettytable import PrettyTable
 
 
 
-class Fs(object):
+class Mid(object):
 
     parser = None
     subars = None
@@ -34,7 +34,7 @@ class Fs(object):
 
         # if single (this) subarg, then only help
         if len(self.subargs) < 2:
-            self.parser.help_fs()
+            self.parser.help_mid()
             return
 
         self.parser.add_argument('fs', help='Subcommand to run')
@@ -42,16 +42,16 @@ class Fs(object):
 
         self.parsed = self.parser.parse_args(in_subargs[1:])
 
-        if not hasattr(self, self.parsed.fs):
-            self.parser.help_fs()
+        if not hasattr(self, self.parsed.mid):
+            self.parser.help_mid()
             exit(1)
 
-        getattr(self, self.parsed.fs)()
+        getattr(self, self.parsed.mid)()
 
         pass
 
     def help(self):
-        self.parser.help_fs()
+        self.parser.help_mid()
 
     def get_mid_files(self):
         files = [os.path.join(self.locations.pwd,f) for f in os.listdir(self.locations.pwd) if os.path.isfile(os.path.join(self.locations.pwd,f)) and f.lower().endswith(('.mid'))]

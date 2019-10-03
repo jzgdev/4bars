@@ -49,9 +49,9 @@ class FourBars(object):
         from cd import Cd
         cd = Cd(sys.argv[1:])
 
-    def fs(self):
-        from fs import Fs
-        fs = Fs(sys.argv[1:])
+    def mid(self):
+        from mid import Mid
+        mid = Mid(sys.argv[1:])
 
     def set(self):
         from set import Set

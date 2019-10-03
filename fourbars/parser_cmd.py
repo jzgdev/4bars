@@ -17,7 +17,7 @@ Common commands:
     init        initialize new 4bars project
     set         Live set management
     get         multilevel configuration lookup
-    fs          operate on files in current directory
+    mid         operate on MIDI (.mid) files in current directory
     status      update on status of installation""")
 
 
@@ -61,16 +61,19 @@ set commands:
     locations      get a list of Ableton and 4bars important folders and files locations
     help           this help menu""")
 
-    def help_fs(self):
+    def help_mid(self):
         self.desc()
         print("""Usage: 4bars [-version] [-help] <command> [args]
 
-FS commands operate on ALL music files in current directory. Example: 4bars fs list-tracks
+MID commands operate on MIDI (.mid) files current or specified (-d) directory. Example: 4bars mid notes
 
-set commands:
+mid commands:
     tracks      list tracks of all midi-based files in current directory
     notes       list notes in tracks using 4bars notation
-    help        this help menu""")
+    help        this help menu
+
+optional:
+    -d          directory folder""")
 
     def help_init(self):
         self.desc()
