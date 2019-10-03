@@ -106,6 +106,9 @@ class Mid(object):
             pretty_table.field_names = ['Name', 'Value']
             pretty_table.align = "l"
             pretty_table.add_row(["File Name", file_name])
+            pretty_table.add_row(["MIDI Type", mid.type])
+            pretty_table.add_row(["# Tracks", len(mid.tracks)])
+
 
             for i, track in enumerate(mid.tracks):
                 ptrack = ParserTrack(track)

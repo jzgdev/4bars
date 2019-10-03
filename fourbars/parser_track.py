@@ -45,7 +45,7 @@ class ParserTrack(object):
         # translate to pylive compativle
         # note position duration velocity
         self.track_string += pretty_midi.note_number_to_name(in_msg.note) + ""
-        #print (in_msg)
+        print (in_msg)
         return
 
 
