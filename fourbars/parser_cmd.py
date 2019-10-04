@@ -70,6 +70,7 @@ MID commands operate on MIDI (.mid) files current or specified (-d) directory. E
 mid commands:
     tracks      list tracks of all midi-based files in current directory
     notes       list notes in tracks using 4bars notation
+    push        push mid files into Live clips on a single track prefixed with 4BARS_
     help        this help menu
 
 optional:

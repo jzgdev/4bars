@@ -1,6 +1,7 @@
 import argparse
 from parser_cmd import ParserCmd
 from parser_track import ParserTrack
+from import_clip import ImportClip
 from locations import Locations
 import os
 import sys
@@ -50,6 +51,12 @@ class Mid(object):
 
         pass
 
+    def push(self):
+        import_clip = ImportClip()
+        import_clip.debug_track_access_assume_first_is_midi()
+        import_clip.add_clip()
+        import_clip.add_note()
+
     def help(self):
         self.parser.help_mid()
 
@@ -88,13 +95,10 @@ class Mid(object):
 
     def notes(self):
 
-
         if self.parsed.d:
             self.locations.pwd = self.parsed.d
 
         files = self.get_mid_files()
-
-
 
         for f in files:
 
@@ -111,16 +115,16 @@ class Mid(object):
 
 
             for i, track in enumerate(mid.tracks):
-                ptrack = ParserTrack(track)
+                ptrack = ParserTrack(track, mid.ticks_per_beat)
                 pretty_table.add_row(["", ""])
                 default = ""
-                if ptrack.time_is_default:
+                if ptrack.signature.time_is_default:
                     default = " *D"
                 pretty_table.add_row(["Track Name", ptrack.name])
-                pretty_table.add_row(["Ticks Per Beat", mid.ticks_per_beat])
-                pretty_table.add_row(["Time Signature{0}".format(default), ptrack.time_signature])
-                pretty_table.add_row(["Clocks Per Click{0}".format(default), ptrack.time_clocks_per_click])
-                pretty_table.add_row(["Notated 32nd notes per beat{0}".format(default), ptrack.time_32nds_per_quarternote])
+                pretty_table.add_row(["Ticks Per Beat", ptrack.signature.mid_ticks_per_beat])
+                pretty_table.add_row(["Time Signature{0}".format(default), ptrack.signature.time_signature])
+                pretty_table.add_row(["Clocks Per Click{0}".format(default), ptrack.signature.time_clocks_per_click])
+                pretty_table.add_row(["Notated 32nd notes per beat{0}".format(default), ptrack.signature.time_32nds_per_beat])
                 pretty_table.add_row(["Track Notes (4bars format)".format(default), ptrack.track_string])
 
             print(pretty_table)

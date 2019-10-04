@@ -34,7 +34,7 @@ class Struct:
         self.__dict__.update(entries)
 
 
-class Clip(object):
+class ImportClip(object):
 
     set = None
     track = None
@@ -63,6 +63,7 @@ class Clip(object):
         self.clip.play()
 
     def add_clip(self):
+        # track_index, clip_index, length
         self.set.create_clip(0, 0, 4)
 
         # since references by value not ref, we need to reload
