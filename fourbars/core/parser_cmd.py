@@ -2,7 +2,7 @@ import argparse
 import sys
 import pkg_resources
 from termcolor import colored
-from cmd import Cmd
+from fourbars.core.cmd import Cmd
 
 
 class ParserCmd(argparse.ArgumentParser):
@@ -11,14 +11,10 @@ class ParserCmd(argparse.ArgumentParser):
         print("""Usage: 4bars [-version] [-help] <command> [args]
 
 The available commands for execution are listed below
-Commands marked [WIP] are work-in-progress
 
 Common commands:
-    init        initialize new 4bars project
-    set         Live set management
-    get         multilevel configuration lookup
-    mid         operate on MIDI (.mid) files in current directory
-    status      update on status of installation""")
+    live        Live set management
+    mid         operate on MIDI (.mid) files in current directory""")
 
 
 #    track       [WIP] current track setup
@@ -70,20 +66,24 @@ MID commands operate on MIDI (.mid) files current or specified (-d) directory. E
 mid commands:
     tracks      list tracks of all midi-based files in current directory
     notes       list notes in tracks using 4bars notation
-    push        push mid files into Live clips on a single track prefixed with 4BARS_
     help        this help menu
 
 optional:
     -d          directory folder""")
 
-    def help_init(self):
+    def help_live(self):
         self.desc()
         print("""Usage: 4bars [-version] [-help] <command> [args]
 
-INIT commands initialize current folder with 4bars Live set. Example: 4bars init
+LIVE commands initialize relate to operations on Ableton Live. Example: 4bars live init
 
 set commands:
-    help           this help menu""")
+    init        [WIP] initialize new song/set in current folder
+    up          [WIP] start Live and load current project
+    import      [WIP] import current folder mid files as clips into current project and track prefixed with 4BARS_
+    record      [WIP] record MIDI track prefixed with 4BARS_ and collect recorded assets
+    locations   show absolute paths to your Ableton installation
+    help        this help menu""")
 
     def error(self, message):
         #sys.stderr.write('ERROR: %s\n' % message)

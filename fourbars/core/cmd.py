@@ -1,4 +1,4 @@
-from static import Static
+from fourbars.core.static import  Static
 import subprocess
 import os
 import sys

@@ -26,7 +26,7 @@ pushd $(python -c "import os; print(os.path.dirname(os.path.realpath('/usr/local
 popd
 
 
-pushd $(python -c "import os; print(os.path.dirname(os.path.realpath('/usr/local/bin/4bars')))")/fourbars
-    python -u fourbars.py "$@"
+pushd $(python -c "import os; print(os.path.dirname(os.path.realpath('/usr/local/bin/4bars')))")
+    python -u __main__.py "$@"
     pyenv deactivate 4bars
 popd

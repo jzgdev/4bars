@@ -25,8 +25,9 @@ SOFTWARE.
 
 import argparse
 import sys
-
-from parser_cmd import ParserCmd
+from fourbars.alive.alive import ALive
+from fourbars.core.parser_cmd import ParserCmd
+from fourbars.mid.mid import Mid
 
 
 class FourBars(object):
@@ -45,21 +46,18 @@ class FourBars(object):
 
         getattr(self, args.command)()
 
-    def cd(self):
-        from cd import Cd
-        cd = Cd(sys.argv[1:])
-
     def mid(self):
-        from mid import Mid
         mid = Mid(sys.argv[1:])
 
-    def set(self):
-        from set import Set
-        set = Set(sys.argv[1:])
+    #def set(self):
+    #    from set import Set
+    #    set = Set(sys.argv[1:])
 
-    def get(self):
-        from get import Get
-        get = Get(sys.argv[1:])
+    #def get(self):
+    #    from get import Get
+    #    get = Get(sys.argv[1:])
 
-if __name__ == "__main__":
-    FourBars()
+    def live(self):
+        alive = ALive(sys.argv[1:])
+
+

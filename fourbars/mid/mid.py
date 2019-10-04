@@ -1,13 +1,12 @@
 import argparse
-from parser_cmd import ParserCmd
-from parser_track import ParserTrack
-from import_clip import ImportClip
-from locations import Locations
+from fourbars.core.parser_cmd import ParserCmd
+from fourbars.alive.parser_track import ParserTrack
+from fourbars.alive.import_clip import ImportClip
+from fourbars.alive.locations import Locations
 import os
 import sys
-from mido import MidiFile
+import mido
 from prettytable import PrettyTable
-
 
 
 class Mid(object):
@@ -51,11 +50,7 @@ class Mid(object):
 
         pass
 
-    def push(self):
-        import_clip = ImportClip()
-        import_clip.debug_track_access_assume_first_is_midi()
-        import_clip.add_clip()
-        import_clip.add_note()
+
 
     def help(self):
         self.parser.help_mid()

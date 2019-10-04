@@ -1,7 +1,7 @@
 from os.path import expanduser
 import os
 import errno
-from parser_cmd import ParserCmd
+#from fourbars.parser_cmd import ParserCmd
 from prettytable import PrettyTable
 
 class Locations(object):
