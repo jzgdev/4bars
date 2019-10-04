@@ -97,7 +97,7 @@ class Mid(object):
 
         for f in files:
 
-            mid = MidiFile(f)
+            mid = mido.MidiFile(f)
             path_array = f.split('/')
             file_name = path_array[len(path_array)-1]
 
