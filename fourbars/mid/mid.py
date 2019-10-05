@@ -1,59 +1,21 @@
-import argparse
-from fourbars.core.parser_cmd import ParserCmd
-from fourbars.alive.parser_track import ParserTrack
-from fourbars.alive.import_clip import ImportClip
-from fourbars.alive.locations import Locations
+
 import os
-import sys
 import mido
 from prettytable import PrettyTable
+from fourbars.alive.locations import Locations
+from fourbars.alive.parser_track import ParserTrack
 
 
 class Mid(object):
 
     parser = None
-    subars = None
     locations = None
-    parsed = None
+    sub_args = None
     pretty_table = None
 
-    def __init__(self, in_subargs):
-
+    def __init__(self, in_sub_args):
+        self.sub_args = in_sub_args
         self.locations = Locations()
-
-        self.parser = ParserCmd(
-            usage=argparse.SUPPRESS,
-            add_help=False)
-
-        # some fs names have dashes
-        if len(in_subargs) > 1:
-            if "-" in in_subargs[1]:
-                in_subargs[1] = in_subargs[1].replace('-', '_')
-
-        self.subargs = in_subargs
-
-        # if single (this) subarg, then only help
-        if len(self.subargs) < 2:
-            self.parser.help_mid()
-            return
-
-        self.parser.add_argument('mid', help='Subcommand to run')
-        self.parser.add_argument('-d', action="store")
-
-        self.parsed = self.parser.parse_args(in_subargs[1:])
-
-        if not hasattr(self, self.parsed.mid):
-            self.parser.help_mid()
-            exit(1)
-
-        getattr(self, self.parsed.mid)()
-
-        pass
-
-
-
-    def help(self):
-        self.parser.help_mid()
 
     def get_mid_files(self):
         files = [os.path.join(self.locations.pwd,f) for f in os.listdir(self.locations.pwd) if os.path.isfile(os.path.join(self.locations.pwd,f)) and f.lower().endswith(('.mid'))]
@@ -65,8 +27,8 @@ class Mid(object):
 
     def tracks(self):
 
-        if self.parsed.d:
-            self.locations.pwd = self.parsed.d
+        if self.sub_args.d:
+            self.locations.pwd = self.sub_args.d
 
         files = self.get_mid_files()
 
@@ -90,8 +52,8 @@ class Mid(object):
 
     def notes(self):
 
-        if self.parsed.d:
-            self.locations.pwd = self.parsed.d
+        if self.sub_args.d:
+            self.locations.pwd = self.sub_args.d
 
         files = self.get_mid_files()
 

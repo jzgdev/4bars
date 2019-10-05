@@ -1,12 +1,26 @@
-from fourbars.core.static import  Static
+from fourbars.core.static import Static
 import subprocess
 import os
 import sys
 import time
 import getpass
+import pkg_resources
+from termcolor import colored
 
 
-class Cmd(object):
+class Spawn(object):
+
+    @staticmethod
+    def help_desc():
+
+        def get_version():
+            try:
+                return pkg_resources.get_distribution("4bars").version
+            except:
+                return Spawn.local_run_get_out("get version", "git describe --tags")
+
+        description = colored("4bars (BETA) (c) 2019 Piotr Styk <dev@4bars.media> {0}".format(get_version()), 'white', attrs=['bold'])
+        print(description)
 
     @staticmethod
     def local_run_realtime(name, cmd):

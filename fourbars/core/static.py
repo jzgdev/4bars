@@ -2,14 +2,10 @@ import os
 import subprocess
 import datetime
 from termcolor import colored
-#import urllib3
-#import requests
-#import requests.exceptions
 import time
 
 
 class Static(object):
-
 
     @staticmethod
     def figlet(msg):

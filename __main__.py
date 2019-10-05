@@ -1,4 +1,4 @@
-from fourbars.core.fourbars import FourBars
+from fourbars.core.core_args import CoreArgs
 
 if __name__ == "__main__":
-    FourBars()
+    CoreArgs()

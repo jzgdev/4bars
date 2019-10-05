@@ -84,10 +84,11 @@ class ParserTrack(object):
     name = None
     signature = None
     track_string = ""
-    clip_notes = []
+    clip_notes = None
     clip_cursor = 0
 
     def __init__(self, in_track, in_ticks_per_beat):
+        self.clip_notes = []
         self.mid_track = in_track
         self.name = self.mid_track.name.rstrip('\x00')
         self.signature = Signature(in_ticks_per_beat)
