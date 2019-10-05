@@ -11,6 +11,14 @@ from termcolor import colored
 class Spawn(object):
 
     @staticmethod
+    def git_log():
+        print(Spawn.local_run_get_out_color("git -c color.ui=always log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -25"))
+
+    @staticmethod
+    def git_pull():
+        print(Spawn.local_run_get_out("get pull", "git pull"))
+
+    @staticmethod
     def help_desc():
 
         def get_version():
@@ -103,6 +111,11 @@ class Spawn(object):
             raise SystemExit(32)
 
         return out[0].decode('utf-8').replace('\n','')
+
+    @staticmethod
+    def local_run_get_out_color(cmd):
+        a = os.popen(cmd)
+        return a.read()
 
     @staticmethod
     def local_run_get_out_list(name, cmd):

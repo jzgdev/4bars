@@ -24,6 +24,14 @@ class CoreArgs(argparse.ArgumentParser):
     def live(self):
         ALiveArgs(sys.argv[1:])
 
+    def log(self):
+        Spawn.help_desc()
+        Spawn.git_log()
+
+    def update(self):
+        Spawn.git_pull()
+        Spawn.help_desc()
+
     def help(self):
         Spawn.help_desc()
         print("""Usage: 4bars [-version] [-help] <command> [args]
@@ -32,7 +40,10 @@ The available commands for execution are listed below
 
 Common commands:
     live        Live set management
-    mid         operate on MIDI (.mid) files in current directory""")
+    mid         operate on MIDI (.mid) files in current directory
+    log         show git log of recent commits and comments
+    update      update 4bars. git pull of checked out branch    
+    """)
 
     def error(self, message):
         #sys.stderr.write('ERROR: %s\n' % message)
