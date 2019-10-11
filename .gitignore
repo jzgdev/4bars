@@ -1,3 +1,9 @@
+# 4Bars Specific
+4bars Project/
+
+# MacOS
+.DS_Store
+
 un/
 .idea/
 src/

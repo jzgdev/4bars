@@ -26,6 +26,8 @@ SOFTWARE.
 
 class Settings(object):
 
+    assets_root = None
+
     def __init__(self):
         pass
 

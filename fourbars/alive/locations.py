@@ -8,6 +8,7 @@ class Locations(object):
 
     home = None
     config = None
+    fourbars_library = None
     preferences_latest = None
     full_pretty = None
     log = None
@@ -18,6 +19,7 @@ class Locations(object):
     def __init__(self):
         self.set_home()
         self.set_config()
+        self.set_fourbars_library()
         self.set_preferences_latest()
         self.set_log()
         self.set_pwd()
@@ -30,6 +32,7 @@ class Locations(object):
         table.add_row(['HOME', self.home])
         table.add_row(['Current Folder', self.pwd])
         table.add_row(['4bars Configuration', self.config])
+        table.add_row(['4bars Library', self.fourbars_library])
         table.add_row(['Ableton Preferences', self.preferences_latest])
         table.add_row(['Ableton Default Live Set', self.default_set])
         table.add_row(['Ableton User Library', self.user_library])
@@ -44,6 +47,11 @@ class Locations(object):
         self.config = os.path.join(self.home, ".config", "4bars")
         if not os.path.exists(self.config):
             self.mkdir_p(self.config)
+
+    def set_fourbars_library(self):
+        self.fourbars_library = os.path.join(self.config, "LIBRARY")
+        if not os.path.exists(self.fourbars_library):
+            self.mkdir_p(self.fourbars_library)
 
     def set_preferences_latest(self):
         # mac location assumption
@@ -65,6 +73,7 @@ class Locations(object):
     def set_user_library(self):
         self.user_library = os.path.join(self.home, "Music/Ableton/User Library")
 
+    # TODO: move to Spawn
     def mkdir_p(self, path):
         try:
             os.makedirs(path)

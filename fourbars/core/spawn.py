@@ -11,6 +11,10 @@ from termcolor import colored
 class Spawn(object):
 
     @staticmethod
+    def cp(src, dst):
+        print(Spawn.local_run_get_out_color('cp "{0}" "{1}"'.format(src, dst)))
+
+    @staticmethod
     def git_log():
         print(Spawn.local_run_get_out_color("git -c color.ui=always log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit -25"))
 

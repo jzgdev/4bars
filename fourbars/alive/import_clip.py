@@ -42,13 +42,22 @@ class ImportClip(object):
 
     def __init__(self):
 
-        self.debug_set_access()
+        self.connect()
         #self.debug_track_access_assume_first_is_midi()
 
-    def debug_set_access(self):
+    def connect(self):
         self.set = live.Set()
         self.set.scan(scan_clip_names = True, scan_devices = True)
-        self.set.tempo = 110.0
+
+    def set_tempo(self, in_tempo):
+        self.set.tempo = in_tempo
+
+    def ctl_insert_record_4bars_at_index(self, index):
+        self.set.create_clip(0, index, 4)
+        self.set.set_clip_name(0, index, "[4BARS] 3/RECFIX 4 {0} ; WAITS 4B ; SCENE >".format(index))
+        device_list = self.set.get_device_list(1)
+        device_parameters = self.set.get_device_parameters(1, 0)
+        pass
 
     def debug_track_access_assume_first_is_midi(self):
         self.track = self.set.tracks[0]

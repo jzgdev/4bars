@@ -3,10 +3,12 @@ import sys
 from fourbars.core.spawn import Spawn
 from fourbars.mid.mid_args import MidArgs
 from fourbars.alive.alive_args import ALiveArgs
+from fourbars.ingest.ingest_args import IngestArgs
 
 
 class CoreArgs(argparse.ArgumentParser):
 
+    # TODO: run locations first time as no config/asset folders exist
     def __init__(self):
         super(CoreArgs, self).__init__()
         self.usage = argparse.SUPPRESS
@@ -23,6 +25,9 @@ class CoreArgs(argparse.ArgumentParser):
 
     def live(self):
         ALiveArgs(sys.argv[1:])
+
+    def ingest(self):
+        IngestArgs(sys.argv[1:])
 
     def log(self):
         Spawn.help_desc()
@@ -41,6 +46,7 @@ The available commands for execution are listed below
 Common commands:
     live        Live set management
     mid         operate on MIDI (.mid) files in current directory
+    ingest      process, format, catalog 4bars loops (Live recorded samples)
     log         show git log of recent commits and comments
     update      update 4bars. git pull of checked out branch    
     """)
