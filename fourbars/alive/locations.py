@@ -1,8 +1,8 @@
 from os.path import expanduser
 import os
 import errno
-#from fourbars.parser_cmd import ParserCmd
 from prettytable import PrettyTable
+
 
 class Locations(object):
 
@@ -39,6 +39,17 @@ class Locations(object):
         table.add_row(['Ableton Log', self.log])
         table.align = "l"
         return table
+
+    def get_aif_files(self):
+        return self.get_files('aif')
+
+    def get_files(self, ext):
+        files = [os.path.join(self.pwd, f) for f in os.listdir(self.pwd) if os.path.isfile(os.path.join(self.pwd, f)) and f.lower().endswith(('.{0}'.format(ext)))]
+        if len(files) == 0:
+            print("No .{0} files".format(ext))
+            exit(0)
+
+        return files
 
     def set_home(self):
         self.home = expanduser("~")

@@ -1,7 +1,5 @@
 
-
 from fourbars.ingest.transcode import Transcode
-from fourbars.ingest.share import Share
 
 
 class Ingest(object):
@@ -12,12 +10,7 @@ class Ingest(object):
         self.sub_args = in_sub_args
 
     def transcode(self):
-        print("echo: 4bars transcode process (work in progress)")
-
-
-
-        transcode = Transcode(self.sub_args).info()
-        pass
+        Transcode(self.sub_args).transcode_folder()
 
     def share(self):
         print("echo: 4bars ingest process (work in progress)")

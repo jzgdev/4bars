@@ -6,22 +6,22 @@ from enum import Enum
 import uuid
 from fourbars.core.spawn import Spawn
 from fourbars.alive.locations import Locations
-import urllib.parse
-
 
 
 class AssetType(Enum):
-    AIF_ORG = "aif_org"
-    OGG_320K = "ogg_320k"
-    OGG_96K = "ogg_96k"
-    AAC_320K = "aac_320k"
-    AAC_96K = "aac_96k"
+    AIF_ORG = "aif_org_org"
+    OGG_320K = "ogg_320k_libvorbis"
+    OGG_96K = "ogg_96k_libvorbis"
+    AAC_320K = "aac_320k_aac"
+    AAC_96K = "aac_96k_aac"
+
 
 # Create your dictionary class
 class AssetItemDict(dict):
 
     def add(self, key, value):
         self[key] = value
+
 
 class Asset(object):
 
@@ -40,7 +40,12 @@ class Asset(object):
     items = AssetItemDict()
 
     org_abs_path = None
+    org_md5 = None
     locations = None
+
+    type_ext = None
+    type_bitrate = None
+    type_codec = None
 
     def __init__(self):
         self.locations = Locations()
@@ -55,6 +60,12 @@ class Asset(object):
     def __str__(self):
         self.as_dict()
 
+    def type_parser(self, in_asset_type):
+        at = in_asset_type.split('_')
+        self.type_ext = at[0]
+        self.type_bitrate = at[1]
+        self.type_codec = at[2]
+
     def md5(self, fname):
         hash_md5 = hashlib.md5()
         with open(fname, "rb") as f:
@@ -62,16 +73,24 @@ class Asset(object):
                 hash_md5.update(chunk)
         return hash_md5.hexdigest()
 
+    def get_org_md5(self, in_file_path_full):
+        self.org_abs_path = in_file_path_full
+        self.org_md5 = self.md5(self.org_abs_path)
+
     def transcode(self, in_file_path_full):
         self.org_abs_path = in_file_path_full
         self.process_original(AssetType.AIF_ORG)
-        self.process_ogg(AssetType.OGG_320K)
-        self.process_ogg(AssetType.OGG_96K)
-        self.process_aac(AssetType.AAC_320K)
-        self.process_aac(AssetType.AAC_96K)
+        self.process_web(AssetType.OGG_320K)
+        self.process_web(AssetType.OGG_96K)
+        self.process_web(AssetType.AAC_320K)
+        self.process_web(AssetType.AAC_96K)
         pass
 
     def process_original(self, in_asset_type):
+
+        if not self.org_md5:
+            self.get_org_md5()
+
         ai = AssetItem()
         ai.set_new_library_location(in_asset_type,
                                     self.org_abs_path,
@@ -81,12 +100,37 @@ class Asset(object):
         self.locations.mkdir_p(ai.lib_abs_full_path)
         Spawn.cp(ai.org_abs_path, ai.lib_abs_full_file)
         ai.append_probe(ffmpeg.probe(ai.org_abs_path, cmd='ffprobe'))
-        ai.append_md5(self.md5(ai.org_abs_path))
+        ai.append_md5(self.org_md5)
 
         self.name = ai.org_name
         self.items.add(AssetType.AIF_ORG, ai)
 
-    def process_ogg(self, in_asset_type):
+    # def process_ogg(self, in_asset_type):
+    #     ai = AssetItem()
+    #     ai.set_new_library_location(in_asset_type,
+    #                                 self.org_abs_path,
+    #                                 self.locations.fourbars_library
+    #                                 )
+    #     # TODO: move mkdir to Spawn
+    #     self.locations.mkdir_p(ai.lib_abs_full_path)
+    #     out, _ = (ffmpeg
+    #               .input(ai.org_abs_path)
+    #               .output(ai.lib_abs_full_file, progress='-', acodec='libvorbis', **{'b:a': '{0}'.format(in_asset_type.value.split('_')[1])})
+    #               .overwrite_output()
+    #               .run()
+    #               )
+    #     ai.append_probe(ffmpeg.probe(ai.lib_abs_full_file, cmd='ffprobe'))
+    #     ai.append_md5(self.md5(ai.lib_abs_full_file))
+    #
+    #     self.name = ai.org_name
+    #     self.items.add(in_asset_type, ai)
+
+    def process_web(self, in_asset_type):
+        at = in_asset_type.value.split('_')
+        type_ext = at[0]
+        type_bitrate = at[1]
+        type_codec = at[2]
+
         ai = AssetItem()
         ai.set_new_library_location(in_asset_type,
                                     self.org_abs_path,
@@ -96,27 +140,7 @@ class Asset(object):
         self.locations.mkdir_p(ai.lib_abs_full_path)
         out, _ = (ffmpeg
                   .input(ai.org_abs_path)
-                  .output(ai.lib_abs_full_file, progress='-', acodec='libvorbis', **{'b:a': '{0}'.format(in_asset_type.value.split('_')[1])})
-                  .overwrite_output()
-                  .run()
-                  )
-        ai.append_probe(ffmpeg.probe(ai.lib_abs_full_file, cmd='ffprobe'))
-        ai.append_md5(self.md5(ai.lib_abs_full_file))
-
-        self.name = ai.org_name
-        self.items.add(in_asset_type, ai)
-
-    def process_aac(self, in_asset_type):
-        ai = AssetItem()
-        ai.set_new_library_location(in_asset_type,
-                                    self.org_abs_path,
-                                    self.locations.fourbars_library
-                                    )
-        # TODO: move mkdir to Spawn
-        self.locations.mkdir_p(ai.lib_abs_full_path)
-        out, _ = (ffmpeg
-                  .input(ai.org_abs_path)
-                  .output(ai.lib_abs_full_file, progress='-', acodec='aac', **{'b:a': '{0}'.format(in_asset_type.value.split('_')[1])})
+                  .output(ai.lib_abs_full_file, progress='-', acodec='{0}'.format(type_codec), **{'b:a': '{0}'.format(type_bitrate)})
                   .overwrite_output()
                   .run()
                   )
@@ -142,8 +166,6 @@ class AssetItem(object):
     duration_ts = None
     duration = None
     bit_rate = None
-#    bits_per_raw_sample = None
-#    nb_frames = None
     format_name = None
     format_long_name = None
     size = None
@@ -185,8 +207,6 @@ class AssetItem(object):
         self.lib_full_file = os.path.join(self.lib_full_path, self.lib_file)
         self.lib_abs_full_path = os.path.join(in_fourbars_library, self.lib_full_path)
         self.lib_abs_full_file = os.path.join(in_fourbars_library, self.lib_full_file)
-        pass
-
 
     def append_probe(self, in_probe):
         self.codec_name = in_probe['streams'][0]['codec_name']
@@ -201,8 +221,6 @@ class AssetItem(object):
         self.duration_ts = in_probe['streams'][0]['duration_ts']
         self.duration = in_probe['streams'][0]['duration']
         self.bit_rate = in_probe['streams'][0]['bit_rate']
-        # self.bits_per_raw_sample = in_probe['streams'][0]['bits_per_raw_sample']
-        # self.nb_frames = in_probe['streams'][0]['nb_frames']
         self.format_name = in_probe['format']['format_name']
         self.format_long_name = in_probe['format']['format_long_name']
         self.size = in_probe['format']['size']
