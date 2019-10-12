@@ -33,6 +33,9 @@ import os.path
 import sys
 import fileinput
 import json
+from datetime import datetime, timezone, timedelta
+import rfc3339      # for date object -> date string
+import iso8601      # for date string -> date object
 
 
 class Struct:
@@ -69,19 +72,37 @@ class Settings(object):
         self.local = Struct(**config_struct.local)
         pass
 
+    def get_atoken_rtoken_seconds_to_expiry(self):
+        atoken = self.get_date_from_str(self.token.expires_after)
+        atoken_diff = atoken - self.get_now_local()
+
+        rtoken = self.get_date_from_str(self.token.refresh_expires_after)
+        rtoken_diff = rtoken -  self.get_now_local()
+        return atoken_diff.total_seconds(), rtoken_diff.total_seconds()
+
+    def get_timezone_local_as_str(self):
+        return str(datetime.datetime.now(datetime.timezone.utc).astimezone().tzinfo)
+
+    def get_now_local_as_str(self, add_seconds=0):
+        if add_seconds > 0:
+            return self.get_str_from_date(datetime.now(timezone.utc).astimezone() + timedelta(seconds=add_seconds))
+        else:
+            return self.get_str_from_date(datetime.now(timezone.utc).astimezone())
+
+    def get_now_local(self, add_seconds=0):
+        if add_seconds > 0:
+            return datetime.now(timezone.utc).astimezone() + timedelta(seconds=add_seconds)
+        else:
+            return datetime.now(timezone.utc).astimezone()
+
+    def get_date_from_str(self, date_string):
+        return iso8601.parse_date(date_string)
+
+    def get_str_from_date(self, date_object):
+        return rfc3339.rfc3339(date_object)
+
     def update_token(self, in_content):
         in_content = json.loads(in_content.decode('utf-8'))
-
-
-        # for line in fileinput.input([self.config_path], inplace=True):
-        #     if line.strip().startswith('initial_mass = '):
-        #         line = 'initial_mass = 123\n'
-        #     sys.stdout.write(line)
-        #
-        #
-        # pysed.
-        # pysed.replace(<Old string>, <Replacement String>, <Text File>)
-        #
 
         with open(self.config_path, "r") as sources:
             lines = sources.readlines()
@@ -91,41 +112,35 @@ class Settings(object):
                     sources.write('    access_token: "{}"\n'.format(in_content['access_token']))
                 elif line.startswith('    expires_in'):
                     sources.write('    expires_in: {}\n'.format(in_content['expires_in']))
+                elif line.startswith('    expires_after'):
+                    b = self.get_now_local_as_str(int(in_content['expires_in']))
+                    sources.write('    expires_after: "{}"\n'.format(b))
                 elif line.startswith('    refresh_token'):
                     sources.write('    refresh_token: "{}"\n'.format(in_content['refresh_token']))
                 elif line.startswith('    refresh_expires_in'):
                     sources.write('    refresh_expires_in: {}\n'.format(in_content['refresh_expires_in']))
+                elif line.startswith('    refresh_expires_after'):
+                    b = self.get_now_local_as_str(int(in_content['refresh_expires_in']))
+                    sources.write('    refresh_expires_after: "{}"\n'.format(b))
                 else:
                     sources.write(line)
 
 
-
-        # import warnings
-        # warnings.simplefilter('ignore', ruamel.yaml.error.UnsafeLoaderWarning)
-        # token = ruamel.yaml.load(open(self.config_path))['token']
-        #
-        # in_content = json.loads(in_content.decode('utf-8'))
-        # token['    access_token'] = in_content['access_token']
-        # token['expires_in'] = in_content['expires_in']
-        # token['refresh_token'] = in_content['refresh_token']
-        # token['refresh_expires_in'] = in_content['refresh_expires_in']
-        #
-        # with open(self.config_path, 'w') as fp:
-        #     yaml.dump(token, fp)
-
-
-# local:
-# library_root: ~/.config/4bars/LIBRARY
-# live_root: autodetect
-# fourbars:
-# auth:
-# auth_url: https://id.micromanager.ai/auth/realms/master/protocol/openid-connect/token
-# client: ai.micromanager.atos
-# username: test01
-# password: Password1
-# token:
-# access_token: a
-# expires_in: b
-# refresh_token: c
-# refresh_expires_in: d
+    def init_configfile(self):
+        # TODO: for now reference below ( ~/.config/4bars/4bars.yaml )
+        # local:
+        #     library_root: ~/.config/4bars/LIBRARY
+        #     live_root: autodetect
+        # fourbars:
+        #     auth:
+        #         auth_url: https://id.micromanager.ai/auth/realms/master/protocol/openid-connect/token
+        #         client: ai.micromanager.atos
+        #         username: <user>
+        #         password: <password>
+        # token:
+        #     access_token: "<atoken>"
+        #     expires_in: 7200
+        #     refresh_token: "<rtoken>"
+        #     refresh_expires_in: 1800
+        pass
 

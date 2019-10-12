@@ -11,22 +11,34 @@ class Connect(object):
         self.settings = Settings()
 
     def login(self):
-        data = OrderedDict([
-            ('client_id', self.settings.auth.client),
-            ('username', self.settings.auth.username),
-            ('password', self.settings.auth.password),
-            ('grant_type', 'password')
-        ])
-        headers={
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-        response = requests.post(self.settings.auth.auth_url,
-                                data=urlencode(data),
-                                headers=headers
-                                )
 
-        self.settings.update_token(response.content)
-        pass
+        # If Token Not Expired, We're still logged in.
+        try:
+            atoken, rtoken = self.settings.get_atoken_rtoken_seconds_to_expiry()
+            if atoken > 60:
+                return True
+        except:
+            return False
+
+        try:
+            data = OrderedDict([
+                ('client_id', self.settings.auth.client),
+                ('username', self.settings.auth.username),
+                ('password', self.settings.auth.password),
+                ('grant_type', 'password')
+            ])
+            headers={
+                'content-type': 'application/x-www-form-urlencoded'
+            }
+            response = requests.post(self.settings.auth.auth_url,
+                                    data=urlencode(data),
+                                    headers=headers
+                                    )
+
+            self.settings.update_token(response.content)
+
+        except:
+            return False
 
     # def get_plain(self):
     #
