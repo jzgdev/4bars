@@ -52,6 +52,7 @@ class Settings(object):
     auth = None
     token = None
     local = None
+    api = None
 
     def __init__(self):
         self.config_path = expanduser('~/.config/4bars/4bars.yaml')
@@ -67,6 +68,7 @@ class Settings(object):
 
         config_struct = Struct(**config_data)
         self.fourbars = Struct(**config_struct.fourbars)
+        self.api = self.fourbars.api
         self.auth = Struct(**self.fourbars.auth)
         self.token = Struct(**config_struct.token)
         self.local = Struct(**config_struct.local)
@@ -77,7 +79,7 @@ class Settings(object):
         atoken_diff = atoken - self.get_now_local()
 
         rtoken = self.get_date_from_str(self.token.refresh_expires_after)
-        rtoken_diff = rtoken -  self.get_now_local()
+        rtoken_diff = rtoken - self.get_now_local()
         return atoken_diff.total_seconds(), rtoken_diff.total_seconds()
 
     def get_timezone_local_as_str(self):

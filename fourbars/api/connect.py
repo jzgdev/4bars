@@ -18,7 +18,7 @@ class Connect(object):
             if atoken > 60:
                 return True
         except:
-            return False
+            pass
 
         try:
             data = OrderedDict([
@@ -27,18 +27,21 @@ class Connect(object):
                 ('password', self.settings.auth.password),
                 ('grant_type', 'password')
             ])
-            headers={
+            headers = {
                 'content-type': 'application/x-www-form-urlencoded'
             }
             response = requests.post(self.settings.auth.auth_url,
-                                    data=urlencode(data),
-                                    headers=headers
-                                    )
+                                     data=urlencode(data),
+                                     headers=headers
+                                     )
 
             self.settings.update_token(response.content)
 
         except:
             return False
+
+    def get_auth_header(self):
+        return "Bearer {0}".format(self.settings.token.access_token)
 
     # def get_plain(self):
     #

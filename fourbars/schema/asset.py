@@ -51,14 +51,32 @@ class Asset(object):
         self.locations = Locations()
         pass
 
-    def as_dict(self):
+    def as_json(self):
+        items = []
+        for key in self.items:
+            items.append({'{}'.format(key.value): self.items[key].as_json()})
+
         return {
-            'guid': self.guid,
-            'items': self.items,
+            'name': self.name,
+            'items': items,
         }
 
-    def __str__(self):
-        self.as_dict()
+    # def as_dict(self):
+    #     return {
+    #         'guid': self.guid,
+    #     }
+
+
+        #it = []
+        #for i in self.items:
+
+        # return {
+        #     'guid': self.guid,
+        #     'items': self.items,
+        # }
+
+
+
 
     def type_parser(self, in_asset_type):
         at = in_asset_type.split('_')
@@ -185,13 +203,19 @@ class AssetItem(object):
     def __init__(self):
         pass
 
-    def as_dict(self):
+    # def as_dict(self):
+    #     return {
+    #         'guid': self.guid,
+    #     }
+
+    def as_json(self):
         return {
             'guid': self.guid,
+            'duration': self.duration,
+            'md5': self.md5,
+            'size': self.size,
         }
 
-    def __str__(self):
-        self.as_dict()
 
     def set_new_library_location(self, in_asset_type, in_org_full_path, in_fourbars_library):
         self.guid = uuid.uuid4().hex.upper()
