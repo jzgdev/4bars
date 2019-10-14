@@ -43,12 +43,3 @@ class Connect(object):
     def get_auth_header(self):
         return "Bearer {0}".format(self.settings.token.access_token)
 
-    # def get_plain(self):
-    #
-    #
-    # def get(self):
-    #     myToken = '<token>'
-    #     myUrl = '<website>'
-    #     if self.token:
-    #         head = {'Authorization': 'token {}'.format(myToken)}
-    #     response = requests.get(self.settings.auth.auth_url, headers=head)

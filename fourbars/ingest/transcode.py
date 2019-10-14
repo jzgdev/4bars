@@ -21,19 +21,23 @@ class Transcode(object):
 
         # TODO: iterate through all - 0 is for testing now
         files = self.locations.get_aif_files()
-        file_in = files[0]
 
-        # TODO: Get Asset MD5 and check against API,
-        # if not present process
-        schema_asset = SchemaAsset()
-        schema_asset.get_org_md5(file_in)
+        for file in files:
+            # obtain md5 of file to be submitted
+            schema_asset = SchemaAsset()
+            schema_asset.get_org_md5(file)
 
-        # snd to api get duplicate (hope not)
-        #if connect.asset_md5(asset.org_md5):
-        #    continue
+            # check if md5 of file to be submitted exists in 4bars database
+            existing_guid = self.api_asset.get_md5_quick(schema_asset.org_md5)
+            if existing_guid:
+                # item abort, already exists in 4bars database
+                print("Skipping ORG: {0}".format(existing_guid))
+                continue
+            else:
+                print("Processing: {0}".format(file))
 
-        schema_asset.transcode(file_in)
-        #print(schema_asset.as_json())
-        self.api_asset.post(schema_asset)
-        pass
+            # transcode original asset
+            schema_asset.transcode(file)
 
+            # post all transcoded assets and link with original
+            self.api_asset.post(schema_asset)

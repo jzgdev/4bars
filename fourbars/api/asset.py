@@ -4,6 +4,7 @@ from collections import OrderedDict
 from fourbars.api.connect import Connect
 import json
 
+
 class Asset(object):
     connect = None
 
@@ -14,12 +15,11 @@ class Asset(object):
             return
 
     def post(self, in_schema_asset):
-
         headers = {
             'Authorization': '{0}'.format(self.connect.get_auth_header()),
             'content-type': 'application/json'
         }
-        response = requests.post(self.connect.settings.api+'asset/',
+        response = requests.post(self.connect.settings.api + 'asset/',
                                  json=json.dumps(in_schema_asset.as_json()),
                                  headers=headers
                                  )
@@ -27,6 +27,18 @@ class Asset(object):
         print()
         print(response.status_code, response.text)
         pass
-    # /asset/md5/quick/<md5>
-    # return empty 200 if nothing
-    # return asset item guid if found 200
+
+    def get_md5_quick(self, in_md5):
+        path = 'asset/md5/quick/{}'.format(in_md5)
+        headers = {
+            'Authorization': '{0}'.format(self.connect.get_auth_header()),
+            'content-type': 'application/json'
+        }
+        response = requests.get(self.connect.settings.fourbars.api+'{0}'.format(path),
+                                headers=headers
+                                )
+
+        if response.status_code == 200:
+            return response.text.replace('\n','').replace('"', '')
+        else:
+            return None
