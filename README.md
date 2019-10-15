@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/fourbars.svg)](https://badge.fury.io/py/fourbars)  ![(https://api.travis-ci.com/styk-tv/4bars.svg)](https://travis-ci.com/styk-tv/4bars)
+[![PyPI version](https://badge.fury.io/py/fourbars.svg)](https://badge.fury.io/py/fourbars)   ![(https://api.travis-ci.com/styk-tv/4bars.svg)](https://api.travis-ci.com/styk-tv/4bars.svg)
 
 # 4bars by Abletonists
 In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then export all new recordings, name them, catalogue them.
@@ -72,17 +72,17 @@ Default ffmpeg LAME encoder for MP3 adds a 25ms silence on both pre-loop and pos
 
 ```$xslt
      <audio controls="controls">
-         <source src="xxx.aac" type="audio/mp4" />
+         <source src="loop.aac" type="audio/aac" />
      </audio>
 
      +---------------------+-----+-----+
      | Browser             | Ogg | AAC |
      +---------------------+-----+-----+
-     | Internet Explorer 9 | No  | Yes |
-     | Firefox 5           | Yes | No  |
-     | Chrome 12           | Yes | Yes |
-     | Safari 5            | No  | Yes |
-     | Opera 11.5          | Yes | No  |
+     | Internet Explorer   | No  | Yes |
+     | Firefox             | Yes | No  |
+     | Chrome              | Yes | Yes |
+     | Safari              | No  | Yes |
+     | Opera               | Yes | No  |
      +---------------------+-----+-----+
 ```
 

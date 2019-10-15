@@ -36,6 +36,7 @@ class Connect(object):
                                      )
 
             self.settings.update_token(response.content)
+            return True
 
         except:
             return False
