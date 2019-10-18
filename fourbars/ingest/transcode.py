@@ -28,13 +28,13 @@ class Transcode(object):
             schema_asset.get_org_md5(file)
 
             # check if md5 of file to be submitted exists in 4bars database
-            # existing_guid = self.api_asset.get_md5_quick(schema_asset.org_md5)
-            # if existing_guid:
-            #     # item abort, already exists in 4bars database
-            #     print("Skipping ORG: {0}".format(existing_guid))
-            #     continue
-            # else:
-            #     print("Processing: {0}".format(file))
+            existing_guid = self.api_asset.get_md5_quick(schema_asset.org_md5)
+            if existing_guid:
+                # item abort, already exists in 4bars database
+                print("Skipping ORG: {0}".format(existing_guid))
+                continue
+            else:
+                print("Processing: {0}".format(file))
 
             # transcode original asset
             schema_asset.created = self.api_asset.connect.settings.get_now_local_as_str()

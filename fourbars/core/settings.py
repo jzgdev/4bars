@@ -134,15 +134,18 @@ class Settings(object):
         #     library_root: ~/.config/4bars/LIBRARY
         #     live_root: autodetect
         # fourbars:
+        #     api: http://localhost:5000/
         #     auth:
         #         auth_url: https://id.micromanager.ai/auth/realms/master/protocol/openid-connect/token
         #         client: ai.micromanager.atos
         #         username: <user>
         #         password: <password>
         # token:
-        #     access_token: "<atoken>"
-        #     expires_in: 7200
-        #     refresh_token: "<rtoken>"
-        #     refresh_expires_in: 1800
+        #         access_token: "<atoken>"
+        #         expires_in: 7200
+        #         expires_after: "<iso-date>"
+        #         refresh_token: "<rtoken>"
+        #         refresh_expires_in: 1800
+        #         refresh_expires_after: "<iso-date>"
         pass
 
