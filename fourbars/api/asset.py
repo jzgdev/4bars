@@ -14,6 +14,7 @@ class Asset(object):
             print("Login Failed")
             return
 
+    # TODO: change to PUT (new) for CRUD consistency
     def post(self, in_schema_asset):
         headers = {
             'Authorization': '{0}'.format(self.connect.get_auth_header()),

@@ -33,6 +33,7 @@ class IngestArgs(argparse.ArgumentParser):
 
         getattr(ingest, args.ingest)()
 
+    # TODO: PLAN (table with processed (not-processed), with bpm calclulated, and confirm on spot plan, transcode, upload
     def help(self):
         Spawn.help_desc()
         print("""Usage: 4bars [-version] [-help] <command> [args]
@@ -40,8 +41,10 @@ class IngestArgs(argparse.ArgumentParser):
 INGEST commands process, format, catalog 4bars loops. Example: 4bars ingest plan
 
 set commands:
-    transcode   process (ffmpeg) recorded elements (ogg & acc at 320/96kbps)
-                high and low quality for html5 cross-browser coverage
+    plan        list duration of each asset, check if each exists (md5) in 4bars online library
+                prevents duplication  
+    transcode   convert recorded loops (ogg at 320/96kbps)
+                high and low quality 
                 output json file catalog with details
     share       ingest processed assets into your 4bars account
                 future-use-placeholder
