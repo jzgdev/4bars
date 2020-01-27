@@ -14,24 +14,17 @@ In Ableton Live, automatically record 4 bar sequences. Multi-scene record, then 
 
 ## Requirements
 - Ableton Live v10.1+
-- python 3.7.2 +
-- brew install ffmpeg
-- pyenv vritualenv 4bars (you will need pyenv virtualenv with 3.7.2 named 4bars)
-- brew install liblo 
-- [pylive](https://github.com/ideoforms/pylive) (freedom to work with Live outside of Live python)
-- liveosc (forked for AL10+, comes with pylive)
+- [homebrew](https://brew.sh/) OS X package manager required to install dependencies
+- [liveosc](https://github.com/ideoforms/LiveOSC) control script [installed](https://github.com/ideoforms/LiveOSC#installation)
 - ClyphX Pro (commercial version)
-- sendmidi receivemidi (for stubborn program changes of vst devices)
-- gzip (for extracting of ableton project files)
 - Mac OS X (not tested on any other platform at the moment)
 
 ## Installation
 
 Currently, based way to install 4bars is by cloning this repo.
 
-- clone 
+- clone repo
 - run install_mac.sh
-- run pip install -r requirements.txt
 - ableton midiscript: ClyphX Pro installed and selected as active Control Surface in Preferences/Link Midi
 - ableton midiscript: LiveOSC (fork maintained by pylive guys) installed and selected as active Control Surface in Preferences/Link Midi 
 
