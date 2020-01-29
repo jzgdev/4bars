@@ -3,7 +3,8 @@
 
 # MacOS
 .DS_Store
-
+.pytest_cache
+.vscode
 un/
 .idea/
 src/

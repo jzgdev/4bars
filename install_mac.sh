@@ -2,9 +2,9 @@
 PYENV="/usr/local/bin/pyenv"
 if [[ -f "$PYENV" ]]; then
 	echo "pyenv already installed."
+	brew install pyenv-virtualenv
 else
 	brew install pyenv
-	brew install pyenv-virtualenv
 	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 	echo 'eval "$(pyenv init -)"' >> ~/.bashrc

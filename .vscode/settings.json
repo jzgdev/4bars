@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/Alex/.pyenv/versions/4bars/bin/python"
+    "python.pythonPath": "/Users/Alex/.pyenv/versions/4bars/bin/python",
+    "python.linting.enabled": true
 }

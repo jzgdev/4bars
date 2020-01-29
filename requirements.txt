@@ -6,7 +6,7 @@ future==0.18.2
 idna==2.8
 iso8601==0.1.12
 mido==1.2.9
-numpy==1.18.1
+numpy>=1.18.1
 pretty-midi==0.2.8
 prettytable==0.7.2
 pyliblo==0.10.0
