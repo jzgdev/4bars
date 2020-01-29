@@ -1,6 +1,4 @@
 os: osx
-dist: precise
-language: python
 before_install: ./install_mac.sh
 matrix:
   include:
