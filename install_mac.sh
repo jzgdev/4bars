@@ -1,15 +1,10 @@
 #!/bin/bash
-PYENV="/usr/local/bin/pyenv"
-if [[ -f "$PYENV" ]]; then
-	echo "pyenv already installed."
-	brew install pyenv-virtualenv
-else
-	brew install pyenv
-	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-	echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-	source ~/.bashrc
-fi
+brew install pyenv
+brew install pyenv-virtualenv
+echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi'
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo 'eval "$(pyenv init -)"' >> ~/.bashrc
 brew install gbevin/tools/sendmidi
 brew install gbevin/tools/receivemidi
 brew install liblo
